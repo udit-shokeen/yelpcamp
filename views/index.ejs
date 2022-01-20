@@ -1,0 +1,47 @@
+<%- include("partials/header.ejs")%>
+
+<style>
+    body {
+        background-image: url("https://www.teahub.io/photos/full/27-275995_photo-wallpaper-background-texture-vintage-style-vintage-travel.jpg");
+        background-size: cover;
+    }
+    img{
+        border: 3px black solid;
+    }
+    .jumbotron{
+        margin-top: 80px;
+        margin-bottom: 0;
+        text-align: center;
+        background-color: rgba(0,0,0,0.35);
+    }
+    h2{
+        color: black;
+        font-weight: 700;
+    }
+    h3{
+        color: black;
+    }
+    h5{
+        color: aliceblue;
+        font-weight: bold;
+    }
+</style>
+
+
+<div class="container" style="margin-top: 60px;">
+    <div class="row">
+        <% camp.forEach(function(site){ %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+                <a href="/camps/<%= site._id %>"><h3><strong><%= site.name %></strong></h3></a>
+                <a href="/camps/<%= site._id %>"><img src=<%= site.url %> width="360px" height="360px"></a>
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+<div class="jumbotron">
+    <a href="/camps/update"><h2>Add New CampGround</h2></a>
+</div>
+
+
+<%- include("partials/footer.ejs")%>

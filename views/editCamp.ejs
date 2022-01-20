@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs")%>
+
+<!--Edit-->
+<div class="jumbotron" style="margin-top: 60px; text-align: center">
+    <h1>Edit Ground- <%=site.name%></h1>
+    <form action="/camps/<%= site._id%>?_method=PUT" method="POST">
+        <h5>Name:</h5>
+        <input type="text" name="post[name]" value="<%= site.name%>">
+        <h5>Image URL</h5>
+        <input type="text" name="post[url]" value="<%= site.url%>">
+        <h5>Description</h5>
+        <textarea name="post[description]"><%= site.description%></textarea>
+        <br/><input type="submit" class="btn btn-md btn-info">
+    </form>
+</div>
+
+<!--Delete-->
+<div class="jumbotron" style="text-align: center">
+    <h2>Remove Site:</h2>
+    <form action="\camps\<%= site._id%>\remove?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-md btn-danger">Delete</button>
+    </form>
+</div>
+
+<%- include("partials/footer.ejs")%>

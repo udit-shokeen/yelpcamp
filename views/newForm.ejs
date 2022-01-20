@@ -1,0 +1,24 @@
+<%- include("partials/header.ejs")%>
+
+<!--Styling-->
+<style>
+    .jumbotron{
+        text-align: center;
+        background-color: rgba(0,0,0,0.35);
+    }
+</style>
+
+
+<!--Page Content-->
+<div class="jumbotron">
+    <h2>Add Site:</h2>
+    <form action="\camps\new" method="POST">
+        <h5>CampName: </h5><input type="text" name="siteName" placeholder="CampGroundName">
+        <h5>CampImageURL: </h5><input type="text" name="sitePhoto" placeholder="CampGroundPhotoUrl">
+        <h5>Description: </h5><textarea name="siteDesc">Enter a few words...</textarea>
+        </br>
+        <input type="submit" style="margin-top: 5px">
+    </form>
+</div>
+
+<%- include("partials/footer.ejs")%>

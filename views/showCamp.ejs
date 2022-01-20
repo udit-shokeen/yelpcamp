@@ -1,0 +1,44 @@
+<head>
+    <style>
+        body{
+            background-image: url("https://www.teahub.io/photos/full/27-275995_photo-wallpaper-background-texture-vintage-style-vintage-travel.jpg");
+            background-size: cover;
+        }
+    </style>    
+</head>
+<%- include("partials/header.ejs")%>
+
+
+
+    <div class="container" style="margin-top: 40px; text-align: center;">
+        <h1 style="text-decoration: underline; font-weight: bold"><%= site.name%></h1>
+        <img width = "540px" height="540px" style="border: black 3px solid" src= <%= site.url %> >
+        <h4 style="color: black; font-weight: 500"><%= site.description%></h4>
+        <br/>
+        <a href="/camps/<%= site._id%>/edit"><button class="btn btn-md btn-info">Edit</button></a>
+        <h3 style="color: black; font-weight: 500">Comments:</h3>
+        <% site.comments.forEach(function(comment){ %>
+            <div style="width: 50%; border: darkgrey 1px dashed; text-align: center; margin: 5px auto">
+                <h6 style="text-decoration: underline; font-weight: bold"><%= comment.author %> - <%= comment.date.toDateString()%></h6>
+                <p><%= comment.content%></p>
+                <% if(user != null){ %>
+                <% if(user._id.equals(comment.userId) || user.username == "admin"){ %>
+                    <form action="/camps/<%= site._id%>/comment/<%= comment._id%>/delete?_method=DELETE" method="POST" >
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                <% } %>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+    <br/>
+    <div class="container" style="text-align: center">
+        <br/><br/><br/>
+        <form action="/camps/<%= site._id%>/comment?_method=PUT" method="POST">
+            <textarea name="comment">Your precious comment here...</textarea><br/>
+            <input type="submit" class="btn btn-md btn-primary">
+        </form>
+    </div>
+    <br/><br/>
+
+<%- include("partials/footer.ejs")%>
