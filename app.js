@@ -12,9 +12,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+
 const mongoose = require("mongoose");
 // mongoose.connect('mongodb://localhost/yelpCampV2');
-mongoose.connect('mongodb+srv://udit:udit@yelpcamp-cxpnu.mongodb.net/yelpCamp?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://udit:udit@yelpcamp-cxpnu.mongodb.net/yelpCamp?retryWrites=true&w=majority');
 
 const flash = require("connect-flash");
 app.use(flash());

@@ -42,9 +42,9 @@ function isLoggedIn(req, res, next){
 
 function isUserAuthorised(req, res, next){
     if(req.isAuthenticated()){
-        Comment.findOne({_id: commentId}, function (err, comment) {
+        Comment.findOne({_id: req.params.commentId}, function (err, comment) {
             if(!err){
-                if(req.user._id.equals(comment.userId)){
+                if(req.user._id.equals(comment.userId) || req.user.username == "admin"){
                     return next();
                 }
             }

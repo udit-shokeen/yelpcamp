@@ -58,7 +58,7 @@ router.get("/camps/:id/edit", isUserAuthorised,function (req, res) {
 router.put("/camps/:id", isUserAuthorised,function (req, res) {
     var temp = req.body.post;
     Site.findByIdAndUpdate(req.params.id, {name: temp.name, url: temp.url, description: temp.description}, function (err, updatedSite) {
-        res.flash("success", "Campground successfully modified.");
+        req.flash("success", "Campground successfully modified.");
         res.redirect("/camps/" + req.params.id);
     })
 });

@@ -1,44 +1,55 @@
 <head>
-    <style>
-        body{
-            background-image: url("https://www.teahub.io/photos/full/27-275995_photo-wallpaper-background-texture-vintage-style-vintage-travel.jpg");
-            background-size: cover;
-        }
-    </style>    
+    <link rel="stylesheet" href="/Styles/showCamp.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
 </head>
 <%- include("partials/header.ejs")%>
+<!-- MAIN BODY -->
 
 
 
-    <div class="container" style="margin-top: 40px; text-align: center;">
-        <h1 style="text-decoration: underline; font-weight: bold"><%= site.name%></h1>
-        <img width = "540px" height="540px" style="border: black 3px solid" src= <%= site.url %> >
-        <h4 style="color: black; font-weight: 500"><%= site.description%></h4>
-        <br/>
-        <a href="/camps/<%= site._id%>/edit"><button class="btn btn-md btn-info">Edit</button></a>
-        <h3 style="color: black; font-weight: 500">Comments:</h3>
-        <% site.comments.forEach(function(comment){ %>
-            <div style="width: 50%; border: darkgrey 1px dashed; text-align: center; margin: 5px auto">
-                <h6 style="text-decoration: underline; font-weight: bold"><%= comment.author %> - <%= comment.date.toDateString()%></h6>
-                <p><%= comment.content%></p>
-                <% if(user != null){ %>
-                <% if(user._id.equals(comment.userId) || user.username == "admin"){ %>
-                    <form action="/camps/<%= site._id%>/comment/<%= comment._id%>/delete?_method=DELETE" method="POST" >
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                <% } %>
-                <% } %>
-            </div>
-        <% }) %>
+<div class="container" style="margin-top: 40px; text-align: center;">
+    <!-- IMAGE CARD; name, photo & description -->
+    <div class="card">
+        <div class="card-header">
+            <img src=<%= site.url %> alt=<%= site.name %> />
+        </div>
+        <div class="card-body">
+            <h1><i class="far fa-compass"></i> <%= site.name %></h1>  
+            <p><%= site.description%></p>
+        </div>
     </div>
-    <br/>
-    <div class="container" style="text-align: center">
-        <br/><br/><br/>
-        <form action="/camps/<%= site._id%>/comment?_method=PUT" method="POST">
-            <textarea name="comment">Your precious comment here...</textarea><br/>
-            <input type="submit" class="btn btn-md btn-primary">
-        </form>
-    </div>
+
+    <!-- EDIT Button, works only if user is the uploader of camp ground -->
+    <a href="/camps/<%= site._id%>/edit"><button class="btn btn-md btn-info">Edit</button></a>
+    
+    <!-- COMMENT SECTION -->
+    <h3 class="outlined">Comments</h3>
+    <% site.comments.forEach(function(comment){ %>
+        <div class="comment-section">
+            <h5><span style="text-decoration: underline; font-weight: bold"><%= comment.author %></span> - <%= comment.date.toDateString()%></h5>
+            <p><%= comment.content%></p>
+            <% if(user != null){ %>
+            <% if(user._id.equals(comment.userId) || user.username == "admin"){ %>
+                <form action="/camps/<%= site._id%>/comment/<%= comment._id%>/delete?_method=DELETE" method="POST" >
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            <% } %>
+            <% } %>
+        </div>
+    <% }) %>
+</div>
+
+<!-- WRITE NEW COMMENT SECTION -->
+<div class="container" style="text-align: center">
     <br/><br/>
+    <form action="/camps/<%= site._id%>/comment?_method=PUT" method="POST">
+        <textarea name="comment">Your precious comment here...</textarea><br/>
+        <input type="submit" class="btn btn-md btn-primary">
+    </form>
+</div>
+<br/><br/>
 
+
+
+<!-- MAIN BODY END -->
 <%- include("partials/footer.ejs")%>
